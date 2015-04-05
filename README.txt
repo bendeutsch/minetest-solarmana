@@ -2,6 +2,7 @@ Solar Mana Mod [solarmana]
 ==========================
 
 A mana regeneration controller: only regenerate mana in sunlight
+or on special nodes.
 
 Version: 0.1.0
 Licence: LGPL 2.1 or later
@@ -15,6 +16,10 @@ This is a mod for MineTest. It depends on, and modifies / works
 with the Mana mod 'mana' by Wuzzy. Instead of constantly
 regenerating mana, this mod requires players to stand in direct
 sunlight for regeneration to kick in.
+
+Since many magic users prefer their homes and offices to actually
+have a roof, standing on specific node types (currently wooden
+planks and gold blocks) will also regenerate mana.
 
 Dependencies
 ------------

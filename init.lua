@@ -28,6 +28,14 @@ USA
 local time_total_regen_check = 0.5
 local time_next_regen_check = time_total_regen_check
 
+-- TODO: make this globally accessible
+local mana_from_node = {
+    ['default:goldblock'] = 2,
+    ['default:wood'] = 1,
+    ['default:junglewood'] = 1,
+    ['default:pinewood'] = 1,
+}
+
 -- just for debugging: see below
 local time_total_mana_reset = 10.0
 local time_next_mana_reset = time_total_mana_reset
@@ -42,8 +50,9 @@ minetest.register_globalstep(function(dtime)
         for _,player in ipairs(minetest.get_connected_players()) do
             local name = player:get_player_name()
             local pos  = player:getpos()
+            local pos_y = pos.y
             -- the middle of the block with the player's head
-            pos.y = math.floor(pos.y) + 1.5
+            pos.y = math.floor(pos_y) + 1.5
             local node = minetest.get_node(pos)
 
             -- Currently uses 'get_node_light' to determine whether
@@ -68,6 +77,14 @@ minetest.register_globalstep(function(dtime)
                 regen_to = 1
             end
             --]]
+
+            -- next, check the block we're standing on.
+            pos.y = math.floor(pos_y) - 0.5
+            node = minetest.get_node(pos)
+            if mana_from_node[node.name] then
+                regen_to = math.max(regen_to, mana_from_node[node.name])
+                --print("Regen to "..regen_to.." : "..node.name)
+            end
 
             mana.setregen(name, regen_to)
             --print("Regen to "..regen_to.." : "..light_day.."/"..light_now.."/"..light_night)
