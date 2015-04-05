@@ -25,12 +25,12 @@ USA
 ]]
 
 
-local time_total_regen_check = 0.5;
-local time_next_regen_check = time_total_regen_check;
+local time_total_regen_check = 0.5
+local time_next_regen_check = time_total_regen_check
 
 -- just for debugging: see below
-local time_total_mana_reset = 10.0;
-local time_next_mana_reset = time_total_mana_reset;
+local time_total_mana_reset = 10.0
+local time_next_mana_reset = time_total_mana_reset
 
 minetest.register_globalstep(function(dtime)
 
@@ -38,7 +38,7 @@ minetest.register_globalstep(function(dtime)
     -- as all it does is change the regeneration to a fixed number
     time_next_regen_check = time_next_regen_check - dtime
     if time_next_regen_check < 0.0 then
-        time_next_regen_check = time_total_regen_check;
+        time_next_regen_check = time_total_regen_check
         for _,player in ipairs(minetest.get_connected_players()) do
             local name = player:get_player_name()
             local pos  = player:getpos()
@@ -51,7 +51,7 @@ minetest.register_globalstep(function(dtime)
             local light_day   = minetest.get_node_light(pos, 0.5)
             local light_night = minetest.get_node_light(pos, 0.0)
             local light_now   = minetest.get_node_light(pos)
-            local regen_to = 0;
+            local regen_to = 0
 
             -- simplest version checks for "full sunlight now"
             if light_now >= 15 then
@@ -78,8 +78,8 @@ minetest.register_globalstep(function(dtime)
 
     time_next_mana_reset = time_next_mana_reset - dtime
     if time_next_mana_reset < 0.0 then
-        time_next_mana_reset = time_total_mana_reset;
-        mana.set('singleplayer', 100);
+        time_next_mana_reset = time_total_mana_reset
+        mana.set('singleplayer', 100)
         print("Resetting mana")
     end
 
